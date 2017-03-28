@@ -1,0 +1,46 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="flash-paid-bills">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 8px;
+      }      
+    </style>
+    <div id="parent-elem">
+      <div class="total-bills show-val">
+        <span class="text">Total amount paid: </span>
+        <span class='happy-color'>{{_formatTotalValue(total)}}</span>
+      </div>
+      <div class="overdue-bills show-val">
+        <span class='happy-color'>{{scheduledBills}}</span>
+        <span class="text"> bills are scheduled to be paid.</span>
+      </div>    
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'flash-paid-bills',
+      properties: {
+        total: String,
+        scheduledBills: Number      
+      },
+      _formatTotalValue: function(total) {        
+        var numVal = parseFloat(total).toFixed(2);
+        return "$" + numVal.toLocaleString();
+      }
+    });
+  </script>
+</dom-module>

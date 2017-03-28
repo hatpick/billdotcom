@@ -1,0 +1,20 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/my-app.html",
+  "fragments": [
+    "src/flash-future-bills.html",
+    "src/flash-paid-bills.html",
+    "src/my-view1.html",
+    "src/my-view2.html",
+    "src/my-view3.html",
+    "src/my-view4.html",
+    "src/my-view404.html"
+  ],
+  "sourceGlobs": [
+    "src/**/*",    
+    "bower.json"
+  ],
+  "includeDependencies": [    
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  ]
+}

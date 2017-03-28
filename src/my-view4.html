@@ -1,0 +1,58 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-view4">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 8px;
+      }
+
+      .marketing-text {
+        font-weight: 400;
+        font-style: normal;
+        font-size: 16px;
+        color: var(--paper-grey-700);
+      }
+
+      .marketing-title {
+        font-weight: 400;
+        font-style: normal;
+        font-size: 18px;
+        color: var(--paper-grey-900);
+      }
+    </style>
+
+    <div class="card">      
+      <p class="marketing-title">{{marketingTitle}}</p>
+      <p class="marketing-text">{{marketingText}}</p>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-view4',
+      properties: {
+        marketingTitle: {
+          type: String,
+          value: "Never do double entry again with premium"
+        },
+        marketingText: {
+          type: String,
+          value: "Sync with your accounting software and never do double entry again."
+        }
+      }
+    });
+  </script>
+</dom-module>

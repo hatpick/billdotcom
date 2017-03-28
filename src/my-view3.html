@@ -1,0 +1,95 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-styles/color.html">
+<link rel="import" href="../bower_components/google-chart/google-chart.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="flash-future-bills.html">
+
+<dom-module id="my-view3">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 8px;
+      }           
+
+      #chart {
+        width: 320px;        
+      }
+
+      @media only screen and (min-width: 800px) {
+        #chart {
+          width: 800px;          
+        }
+      }
+    </style>
+
+    <div class="card">
+      <flash-future-bills total="3500" due-today="10" overdue="3"/>      
+    </div>
+    <div class="card chart-area">
+      <google-chart
+        id='chart'
+        type='line'
+        options='{"title": "Bills to pay in next 30 days"}'
+        cols='[{"label":"Days", "type":"string"}, {"label":"Bills", "type":"number"}]'
+        rows='{{chartData}}'>
+      </google-chart>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-view3',
+      properties: {
+        chartData: {
+          type: Array,
+          value: function() {
+            var arr = [];
+            var arrItem;
+            for(var i = 30 ; i >= 0; i--) {
+              arrItem = [];
+              arrItem[0] = moment().add(-i, 'day').format("MMM Do");
+              arrItem[1] = Math.floor(Math.random() * 6);
+              arr.push(arrItem);
+            }
+
+            return arr;
+          }
+        }
+      }, 
+      ready: function() {
+        var $that = this;
+        var $w = window,
+          $d = document,
+          $e = $d.documentElement,
+          $g = $d.getElementsByTagName('body')[0];
+        window.addEventListener('resize', function() {          
+          width = $w.innerWidth || $e.clientWidth || $g.clientWidth;
+          var currentWidth = $that.$["chart"].style["width"];
+          if(width < 800) {
+            if(currentWidth != "320px") {
+              $that.$["chart"].style["width"] = "320px";
+              $that.$["chart"].redraw();
+            }
+          } else {
+            if(currentWidth != "800px") {
+              $that.$["chart"].style["width"] = "800px";
+              $that.$["chart"].redraw();
+            }
+          }
+        });
+      }
+    });
+  </script>
+</dom-module>
