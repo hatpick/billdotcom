@@ -1,4 +1,4 @@
-##Steps to run:
+#Steps to launch:
 1. Install required packages
    1. Install node.js
    2. Install bower using ```npm install -g bower```
