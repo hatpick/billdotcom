@@ -34,17 +34,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div class="card">
-      <flash-paid-bills total="56325" scheduled-bills="3"/>      
-    </div>
-    <div class="card chart-area">
-      <google-chart
-        id='chart'
-        type='line'
-        options='{"title": "Bills paid in past 30 days"}'
-        cols='[{"label":"Days", "type":"string"}, {"label":"Bills", "type":"number"}]'
-        rows='{{chartData}}'>
-      </google-chart>
-    </div>
+      <div class="card-content">
+        <flash-paid-bills total="56325" scheduled-bills="3"/>      
+      </div>
+      <div class="card-actions">
+        <google-chart
+          id='chart'
+          type='line'
+          options='{"title": "Bills paid in past 30 days"}'
+          cols='[{"label":"Days", "type":"string"}, {"label":"Bills", "type":"number"}]'
+          rows='{{chartData}}'>
+        </google-chart>
+      </div>
+    </div>    
   </template>
 
   <script>

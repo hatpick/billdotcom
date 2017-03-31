@@ -17,26 +17,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
         padding: 8px;
-      }
-
-      .marketing-text {
-        font-weight: 400;
-        font-style: normal;
-        font-size: 16px;
-        color: var(--paper-grey-700);
-      }
-
-      .marketing-title {
-        font-weight: 400;
-        font-style: normal;
-        font-size: 18px;
-        color: var(--paper-grey-900);
-      }
+      }      
     </style>
 
-    <div class="card">      
-      <p class="marketing-title">{{marketingTitle}}</p>
-      <p class="marketing-text">{{marketingText}}</p>
+    <div class="card small">      
+      <div class="card-content">
+        <div class="cafe-header">{{marketingTitle}}</div>
+        <p><span class="text">{{marketingText}}</span></p>
+      </div>      
     </div>
   </template>
 

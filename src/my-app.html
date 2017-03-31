@@ -9,20 +9,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
-<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="../bower_components/app-route/app-location.html">
-<link rel="import" href="../bower_components/app-route/app-route.html">
-<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/shibui-dropdown-menu/shibui-dropdown-menu.html">
 <link rel="import" href="my-icons.html">
+<link rel="import" href="my-view1.html">
+<link rel="import" href="my-view2.html">
+<link rel="import" href="my-view3.html">
+<link rel="import" href="my-view4.html">
 
 <dom-module id="my-app">
   <template>
@@ -37,6 +38,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
 
+      .container {
+        @apply(--layout-center-justified);
+        @apply(--layout-horizontal);      
+        @apply(--layout-wrap);              
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+
+      @media only screen and (min-width: 1025px) {
+        .container {
+          width: 1024px;
+          margin: auto;
+        }
+
+        app-toolbar {
+          width: 1024px; 
+          margin: auto;
+        }
+
+      }
+
       search-bar {
         float: left;
       }
@@ -45,67 +67,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #fff;
         background-color: var(--app-primary-color);
       }
+
       app-header paper-icon-button {
         --paper-icon-button-ink-color: white;
-      }
-
-      app-drawer {
-        --app-drawer-content-container: {
-          box-shadow: 1px 0 2px 1px rgba(0,0,0,0.18);
-        }
-        --app-drawer-scrim-background: rgba(179, 157, 219, 0.5);
-      }
+      }      
 
       #toggle-search {
         position: absolute;
-        right: 16px;
+        right: 0;
+        margin-right: 8px;
+      }
+
+      #toggle-user {
+        position: absolute;
+        right: 0;
+        margin-right: 40px;
       }
 
       @media only screen and (min-width: 800px) {
-        #search-box {
-          animation: 700ms ease 0s slideInRight;
-        }
-
-        app-drawer {
-          animation: 700ms ease 0s slideInLeft;
-        }
-
-        app-header {
-          animation: 700ms ease 0s slidInDown;
-        }
-
-        @keyframes slideInLeft {
-          0% {        
-            opacity: 0;
-            transform: translateX(-100%);          
-          }
-          100% {        
-          opacity: 1;  
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes slideInRight {
-          0% {        
-            opacity: 0;
-            transform: translateX(100%);          
-          }
-          100% {        
-          opacity: 1;  
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes slidInDown {
-          0% {        
-            opacity: 0;
-            transform: translateY(-100%);          
-          }
-          100% {       
-            opacity: 1;     
-            transform: translateY(0);
-          }
-        }
+        .card {
+          max-width: 300px;
+        }        
+        #toggle-user {
+          display: none;
+        }        
 
         #toggle-search {
           display: none;
@@ -119,6 +104,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         #search-box {
           display: none;
         }
+        .user-info {
+          display: none;
+        }        
       }      
 
       .logo {
@@ -136,27 +124,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           transform: scale(1);
         }
       }
-        
-      .drawer-list a {
-        display: block;
-        padding: 0 16px;
-        text-decoration: none;
-        color: var(--app-secondary-color);
-        line-height: 40px;
-      }
-
-      .drawer-list a.iron-selected {
-        color: #2666b4;
-        background: #f5f5f5;
-      }
 
       .user-display {
-        color: #000;
+        color: #fff;
         font-weight: 500;
         font-size: 12px;
       }
 
-      .action-logout {
+      .action-logout {        
         font-weight: 300;
         color: #368EFA;
         text-decoration: none;
@@ -166,7 +141,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .user-info span {
         display: block;
         line-height: 1;
-        text-align: left;
+        text-align: right;
       }
 
       #responsive-search {
@@ -222,120 +197,70 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .user-info {
-        margin-right: 16px;
+        position: absolute;
+        right: 0;
+        margin-right: 16px;        
+        margin-top: 4px;
       }      
 
-      .badge {        
-        color: #fff;
-        border-radius: 50%;
-        width:20px;
-        height: 20px;
-        display: flex;
-        justify-content: center;
-        margin-left: 8px;
-        margin-top: 0;
-        align-items: center;
+      #toggle-user .primary {
+        @apply --layout-vertical;
       }
 
-      .badge-text {
-        -webkit-font-smoothing: antialiased;
-        font-weight: normal;
-        font-size: 11px;
+      #toggle-user .user-display {
+        color: #000;
       }
+    </style>    
 
-      .badge.success {
-        background: var(--paper-green-500);
-      }
-
-      .badge.warning {
-        background: var(--paper-orange-500);
-      }  
-    </style>
-
-    <app-location route="{{route}}"></app-location>
-    <app-route
-        route="{{route}}"
-        pattern="/:page"
-        data="{{routeData}}"
-        tail="{{subroute}}"></app-route>
-
-    <app-drawer-layout fullbleed>
-      <!-- Drawer content -->
-      <app-drawer id="drawer">
-        <app-toolbar>
-          <div class="user-info">
-            <span class="user-display">{{getDisplayName()}}</span>
-            <span>
-              <a href="#" class="action-logout">Logout</a>
-            </span>
+    <!-- Main content -->
+    
+      <app-header fixed condenses reveals effects="waterfall">
+        <app-toolbar>          
+          <div style="display: flex;">
+            <img src="https://www.bill.com/sites/all/themes/bdc_bootstrap/images/5mhome/BDC_LOGO_RGB.svg" alt="" class="logo">              
+            <div id="search-box">
+              <input class="search" placeholder="Search...">
+              <iron-icon icon="icons:search" class="search-icon"/>
+            </div>
+            <div class="user-info">
+              <span class="user-display">{{getDisplayName()}}</span>
+              <span>
+                <a href="#" class="action-logout">Logout</a>
+              </span>
+            </div>
           </div>
-        </app-toolbar>        
-        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="view1" href="/view1">Setup bank</a>
-          <a name="view2" href="/view2">
-            <div style="display: flex; align-items: center;">
-              <span>Pay bills</span>
-              <div class="badge success"><span class="badge-text">3</span></div>
+
+          <div id="responsive-search">
+            <div class="responsive-search-inner">
+              <paper-icon-button style="margin-top:12px" icon="my-icons:arrow-back" on-click="_toggleSearch"></paper-icon-button>              
+              <input type="search" placeholder="Search...">
             </div>
-          </a>
-          <a name="view3" href="/view3">
-            <div style="display: flex; align-items: center;">
-              <span>Payments made</span>
-              <div class="badge warning"><span class="badge-text">3</span></div>
-            </div>
-          </a>
-          <a name="view4" href="/view4">Upgrade</a>
-        </iron-selector>
-      </app-drawer>
+          </div>
+          <paper-icon-button id="toggle-search" icon="my-icons:search" on-click="_toggleSearch"></paper-icon-button>
+          <shibui-dropdown-menu id="toggle-user" alignment="left">
+            <paper-icon-button slot="trigger" icon="my-icons:user"></paper-icon-button>
+            <a class="primary">              
+                <span class="user-display">{{getDisplayName()}}</span>
+                <span class="action-logout">Logout</span>              
+            </a>
+          </shibui-dropdown-menu>
+        </app-toolbar>
+      </app-header>
 
-      <!-- Main content -->
-      <app-header-layout has-scrolling-region>
-        <app-header condenses reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div style="display: flex;">
-              <img src="https://www.bill.com/sites/all/themes/bdc_bootstrap/images/5mhome/BDC_LOGO_RGB.svg" alt="" class="logo">              
-              <div id="search-box">
-                <input class="search" placeholder="Search...">
-                <iron-icon icon="icons:search" class="search-icon"/>
-              </div>
-            </div>            
-
-            <div id="responsive-search">
-              <div class="responsive-search-inner">
-                <paper-icon-button style="margin-top:12px" icon="my-icons:arrow-back" on-click="_toggleSearch"></paper-icon-button>
-                <input type="search" placeholder="Search...">
-              </div>
-            </div>            
-            <paper-icon-button id="toggle-search" icon="my-icons:search" on-click="_toggleSearch"></paper-icon-button>
-          </app-toolbar>
-        </app-header>
-
-        <iron-pages
-            selected="[[page]]"
-            attr-for-selected="name"
-            fallback-selection="view404"
-            role="main">
-          <my-view1 name="view1"></my-view1>
-          <my-view2 name="view2"></my-view2>
-          <my-view3 name="view3"></my-view3>
-          <my-view4 name="view4"></my-view4>
-          <my-view404 name="view404"></my-view404>
-        </iron-pages>
-      </app-header-layout>
-    </app-drawer-layout>
+      <div class="container">
+        <my-view1></my-view1>
+        <my-view4></my-view4>
+        <my-view2></my-view2>
+        <my-view3></my-view3>        
+      </div>
+    
   </template>
 
   <script>
     Polymer({
       is: 'my-app',
 
-      properties: {
-        page: {
-          type: String,
-          reflectToAttribute: true,
-          observer: '_pageChanged',
-        },
+      properties: {        
         firstname: {
           type: String,
           value: 'Soroush',
@@ -374,25 +299,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         } else {
           this.$["responsive-search"].style["display"] = "block";
         }
-      },
-      _routePageChanged: function(page) {
-        this.page = page || 'view1';
-
-        if (!this.$.drawer.persistent) {
-          this.$.drawer.close();
-        }
-      },
-
-      _pageChanged: function(page) {
-        // Load page import on demand. Show 404 page if fails
-        var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
-        this.importHref(resolvedPageUrl, null, this._showPage404, true);
-        this.$["responsive-search"].style["display"] = "none";
-      },
-
-      _showPage404: function() {
-        this.page = 'view404';
-      },
+      }
     });
   </script>
 </dom-module>

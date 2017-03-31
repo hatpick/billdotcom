@@ -17,14 +17,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         padding: 8px;
       }      
+
+      .show-val {
+        display: flex;
+        align-content: center;
+      }
     </style>
     <div id="parent-elem">
       <div class="total-bills show-val">
-        <span class="text">Total amount paid: </span>
+        <span class="text">Total amount paid:&nbsp;&nbsp;</span>
         <span class='happy-color'>{{_formatTotalValue(total)}}</span>
       </div>
       <div class="overdue-bills show-val">
-        <span class='happy-color'>{{scheduledBills}}</span>
+        <div class="badge success"><span class="badge-text">{{scheduledBills}}</span></div>
         <span class="text"> bills are scheduled to be paid.</span>
       </div>    
     </div>

@@ -17,18 +17,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         padding: 8px;        
       }    
+
+      .show-val {
+        display: flex;
+        align-content: center;
+      }
     </style>
     <div id="parent-elem">
       <div class="total-bills show-val">
-        <span class='text'>Total amount to pay: </span>
+        <span class='text'>Total amount to pay:&nbsp;&nbsp;</span>
         <span class='alert-color'>{{_formatTotalValue(total)}}</span>
       </div>
       <div class="overdue-bills show-val">
-        <span class='alert-color'>{{dueToday}}</span><span class="text"> bills are overdue.</span>
+        <div class="badge alert"><span class="badge-text">{{dueToday}}</span></div>
+        <span class="text"> bills are overdue.</span>
         <paper-button class='secondary-action-inline'>pay now</paper-button>
       </div>
       <div class="today-bills show-val">
-        <span class='warning-color'>{{overdue}}</span><span class="text"> bills are due today.</span>
+        <div class="badge warning"><span class="badge-text">{{overDue}}</span></div>
+        <span class="text"> bills are due today.</span>
         <paper-button class='secondary-action-inline'>pay now</paper-button>
       </div>    
     </div>
@@ -40,7 +47,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         total: String,
         dueToday: Number,
-        overdue: Number
+        overDue: Number
       },
       _formatTotalValue: function(total) {        
         var numVal = parseFloat(total).toFixed(2);
